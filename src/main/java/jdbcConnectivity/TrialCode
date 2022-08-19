@@ -1,0 +1,41 @@
+package jdbcConnectivity;
+
+public class Main {
+
+public static void main(String[] args) {
+	final MysqlCon dbCon=new MysqlCon();
+	//Entering Project
+	System.out.println("Welcome to jdbc connectivity project! displaying table userEntries.... ");
+	Thread t1= new Thread(new Runnable() {
+		public void run() {
+			dbCon.showTable();
+		}
+	});
+	t1.start();
+	//Inserting new Record
+	System.out.println("\n Insert new record in table ");
+	Thread t2= new Thread(new Runnable() {
+		public void run() {
+			dbCon.insertRecord(8, "Tarun", "9414312249", "Jammu");
+		}
+	});
+	t2.start();
+	Thread t3= new Thread(new Runnable() {
+		public void run() {
+			dbCon.showTable();
+		}
+	});
+    t3.start();
+	//Deleting the Record
+	System.out.println("\n Deleting record by id with ID=1 ");
+	dbCon.deleteRecordById(1);
+	dbCon.showTable();
+	//Updating the record 
+	System.out.println("\n Updating the record by ID Setting name=Raj where id=1 ");
+	dbCon.updateNameById(1, "Raj");
+	dbCon.showTable();
+	//Fetching the Record 
+	System.out.println("\n Fetching the record by ID with id=8");
+	dbCon.getRecordById(8);
+}
+}
